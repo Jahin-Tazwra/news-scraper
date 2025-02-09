@@ -12,6 +12,7 @@ app.get("/api/:ticker", async (req, res) => {
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
+    protocolTimeout: 120000
   };
   const ticker = req.params.ticker;
 
@@ -19,8 +20,7 @@ app.get("/api/:ticker", async (req, res) => {
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
 
-    await page.goto(`https://finance.yahoo.com/quote/${ticker}/news`);
-    await page.waitForNavigation({timeout: 100000});
+    await page.goto(`https://finance.yahoo.com/quote/${ticker}/news`, {timeout: 100000});
 
     // Wait for the target element to load
     const selector = "#nimbus-app > section > section > section > article > section.mainContent.yf-tnbau3 > section";
