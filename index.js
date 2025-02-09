@@ -8,11 +8,17 @@ function delay(time) {
 
 app.get("/api/:ticker", async (req, res) => {
   let options = {
+    args: [
+        "--disable-setuid-sandbox",
+        "--no-sandbox",
+        "--single-process",
+        "--no-zygote",
+    ],
     executablePath:
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
         : puppeteer.executablePath(),
-    protocolTimeout: 1200000
+    protocolTimeout: 120000
   };
   const ticker = req.params.ticker;
 
@@ -20,11 +26,11 @@ app.get("/api/:ticker", async (req, res) => {
     const browser = await puppeteer.launch(options);
     const page = await browser.newPage();
 
-    await page.goto(`https://finance.yahoo.com/quote/${ticker}/news`, {timeout: 1000000});
+    await page.goto(`https://finance.yahoo.com/quote/${ticker}/news`, {timeout: 100000});
 
     // Wait for the target element to load
     const selector = "#nimbus-app > section > section > section > article > section.mainContent.yf-tnbau3 > section";
-    await page.waitForSelector(selector, {timeout: 1000000});
+    await page.waitForSelector(selector, {timeout: 100000});
 
     // Scroll 5 times to load more content, waiting 2 seconds between each scroll
     for (let i = 0; i < 2; i++) {
