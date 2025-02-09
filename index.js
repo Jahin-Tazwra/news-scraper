@@ -30,11 +30,12 @@ app.get("/api/:ticker", async (req, res) => {
 
     await page.goto(`https://finance.yahoo.com/quote/${ticker}/news`, {
       waitUntil: "networkidle2",
+      timeout: 50000
     });
 
     const selector =
       "#nimbus-app > section > section > section > article > section.mainContent.yf-tnbau3 > section";
-    await page.waitForSelector(selector, { timeout: 10000 });
+    await page.waitForSelector(selector, { timeout: 50000 });
 
     for (let i = 0; i < 2; i++) {
       await page.evaluate(() => window.scrollTo(0, document.body.scrollHeight));
