@@ -24,12 +24,13 @@ app.get("/api/:ticker", async (req, res) => {
 
   const ticker = req.params.ticker;
 
-  const browser = await puppeteer.launch(options);
-  const page = await browser.newPage();
-  await page.goto(`https://finance.yahoo.com/quote/${ticker}/news`);
-
+  
   try {
-
+      
+    const browser = await puppeteer.launch(options);
+    const page = await browser.newPage();
+    
+    await page.goto(`https://finance.yahoo.com/quote/${ticker}/news`);
 
     // Wait for the target element to load
     const selector = "#nimbus-app > section > section > section > article > section.mainContent.yf-tnbau3 > section";
