@@ -8,7 +8,7 @@ app.get("/api/:ticker", async (req, res) => {
   res.send(data);
 });
 
-app.get("/api/robot", (req, res) => {
+app.get("/", (req, res) => {
   res.send("Nothing here");
 })
 
