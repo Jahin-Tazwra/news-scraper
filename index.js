@@ -8,6 +8,10 @@ app.get("/api/:ticker", async (req, res) => {
   res.send(data);
 });
 
+app.get("/api/robot", (req, res) => {
+  res.send("Nothing here");
+})
+
 app.listen(process.env.PORT || 3000, () => {
   console.log("Server started");
 });
