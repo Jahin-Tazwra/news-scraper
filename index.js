@@ -16,9 +16,10 @@ app.get("/api/:ticker", async (req, res) => {
       "--no-zygote",
     ],
     executablePath:
-      process.env.NODE_ENV === "production"
-        ? process.env.PUPPETEER_EXECUTABLE_PATH
-        : puppeteer.executablePath(),
+      // process.env.NODE_ENV === "production"
+      //   ? process.env.PUPPETEER_EXECUTABLE_PATH
+      //   : puppeteer.executablePath(),
+      puppeteer.executablePath(),
     slowMo: 100,
   };
 
