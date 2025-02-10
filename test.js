@@ -17,8 +17,7 @@ async function scrapVideo(url) {
     executablePath:
       process.env.NODE_ENV === "production"
         ? process.env.PUPPETEER_EXECUTABLE_PATH
-        : puppeteer.executablePath(),
-    slowMo: 100,
+        : puppeteer.executablePath()
   });
   const page = await browser.newPage();
   await page.goto(url, {timeout: 1000000});
